@@ -2,7 +2,7 @@
  * Code de réfactorisé — Exercice 1 : principes SOLID.
  * Le programme respecte les principes solid OCP et ISP
  */
-public class CrisisLink_Alert {
+public class Crisis_Link_Alert {
 
     public static void main(String[] args) {
         Alert alert = new Alert(
