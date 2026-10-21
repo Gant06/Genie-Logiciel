@@ -1,4 +1,5 @@
 package com.example.testing;
+import org.junit.Test;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,7 +12,8 @@ class CalculatorFunctionalTest {
     @BeforeEach void setUp() { calculator = new Calculator(); }
 
     //Add
-    @Test void testAddPositiveNumbers() {
+    @Test
+    void testAddPositiveNumbers() {
         assertEquals(5, calculator.add(2, 3));
         assertEquals(100, calculator.add(45, 55));
     }
@@ -52,6 +54,35 @@ class CalculatorFunctionalTest {
         assertEquals(7, calculator.divide(42, 6));
         assertEquals(36, calculator.divide(648, 18));
     }
+    @Test void testDivideWithNegativeNumbers(){
+        assertEquals(-7, calculator.divide(-42, 6));
+        assertEquals(-7, calculator.divide(42, -6));
+        assertEquals(7, calculator.divide(-42, -6));
+        assertThrows(ArithmeticException.class, () -> calculator.divide(6, 0));
+    }
 
+    //Factorial
+    @Test void testFactorialPositiveNumbers(){
+        assertEquals(1, calculator.factorial(0));
+        assertEquals(1, calculator.factorial(1));
+        assertEquals(120, calculator.factorial(5));
+    }
 
+    @Test void testFactorialWithNegativeNumbers(){
+        assertThrows(IllegalArgumentException.class, () -> calculator.factorial(-3));
+    }
+
+    //isPrime
+    @ParameterizedTest
+    @ValueSource(ints = {2, 3, 5, 7, 11, 13, 17, 19, 23, 97})
+    void testIsPrimeTrue(int number) {
+        assertTrue(calculator.isPrime(number));
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {-5, -1, 0, 1, 4, 6, 8, 9, 15, 100})
+    void testIsPrimeFalse(int number) {
+        assertFalse(calculator.isPrime(number));
+    }
+    
 }
